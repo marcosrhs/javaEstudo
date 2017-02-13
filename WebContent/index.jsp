@@ -20,6 +20,11 @@
 	  <tr>
 	   <td><a href="pages/paginaPai.jsp">Load jQuery</a></td>
 	 </tr>
+	 
+	 
+	 <tr>
+	   <td><a href="pages/progresbar.jsp">Progress Bar</a></td>
+	 </tr>
 	</table>
 	
 </body>
