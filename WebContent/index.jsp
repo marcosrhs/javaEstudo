@@ -25,6 +25,11 @@
 	 <tr>
 	   <td><a href="pages/progresbar.jsp">Progress Bar</a></td>
 	 </tr>
+	 
+	 
+	  <tr>
+	   <td><a href="pages/upload.jsp">Upload</a></td>
+	 </tr>
 	</table>
 	
 </body>
