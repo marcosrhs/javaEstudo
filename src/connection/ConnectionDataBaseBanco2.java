@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 
 /**
  * Realizar a conexão com o banco de dados
- * Conexão Postgresql para o banco curso-jsp
+ * Conexão Postgresql para o banco aprendendojsp
  * @author alex
  * 
  */
-public class ConnectionDataBase {
+public class ConnectionDataBaseBanco2 {
 
-	private static String banco = "jdbc:postgresql://localhost:5432/curso-jsp?autoReconnect=true";
+	private static String banco = "jdbc:postgresql://localhost:5432/aprendendojsp?autoReconnect=true";
 	private static String password = "admin";
 	private static String user = "postgres";
 	private static Connection connection = null;
@@ -20,7 +20,7 @@ public class ConnectionDataBase {
 		conectar();
 	}
 
-	public ConnectionDataBase() {
+	public ConnectionDataBaseBanco2() {
 		conectar();
 	}
 

@@ -5,22 +5,22 @@ import java.sql.DriverManager;
 
 /**
  * Realizar a conexão com o banco de dados
- * Conexão Postgresql para o banco curso-jsp
+ * Conexão Mysql para o banco aprendendojsp
  * @author alex
  * 
  */
-public class ConnectionDataBase {
+public class ConnectionDataBaseMySQL {
 
-	private static String banco = "jdbc:postgresql://localhost:5432/curso-jsp?autoReconnect=true";
+	private static String banco = "jdbc:mysql://localhost:3306/aprendendojsp?autoReconnect=true";
 	private static String password = "admin";
-	private static String user = "postgres";
+	private static String user = "admin";
 	private static Connection connection = null;
 
 	static {
 		conectar();
 	}
 
-	public ConnectionDataBase() {
+	public ConnectionDataBaseMySQL() {
 		conectar();
 	}
 
@@ -28,7 +28,7 @@ public class ConnectionDataBase {
 
 		try {
 			if (connection == null) {
-					Class.forName("org.postgresql.Driver");
+					Class.forName("com.mysql.jdbc.Driver");
 					connection = DriverManager.getConnection(banco, user, password);
 			}
 		} catch (Exception exception) {
