@@ -44,6 +44,7 @@ $(document).ready(function() {
 
 		$.get("buscarDatasPlanejamento", function(response) {
 			
+		// processa dados gant view INICIO	
 			var ganttDataResposta = JSON.parse(response);
 			
 			var ganttData = "";
@@ -55,10 +56,19 @@ $(document).ready(function() {
 					
 					$.each(projeto.series, function(idx, serie) {// for das series
 						
+						var cores = "#3366FF,#00CC00".split(',');
+					
+						var cor;
+						if (idx === 0) {
+							cor = "#CC33CC";
+						}else {
+						   cor = Number.isInteger(idx / 2) ? cores[0] : cores[1];
+						}
+						
 						var datainicial = serie.datainicial.split('-');
 						var datafinal = serie.datafinal.split('-');
 						
-						ganttData +="{ \"name\": \""+serie.nome+"\", \"start\":\""+ new Date(datainicial[0],datainicial[1],datainicial[2])+"\", \"end\": \""+new Date(datafinal[0],datafinal[1],datafinal[2])+"\" }";
+						ganttData +="{ \"name\": \""+serie.nome+"\", \"start\":\""+ new Date(datainicial[0],datainicial[1],datainicial[2])+"\", \"end\": \""+new Date(datafinal[0],datafinal[1],datafinal[2])+"\" , \"color\": \""+cor+"\" }";
 						
 						if (idx < projeto.series.length - 1){
 							ganttData +=",";
@@ -76,6 +86,8 @@ $(document).ready(function() {
 			 ganttData += "]";
 			
 			 ganttData = JSON.parse(ganttData);
+			 
+			// processa dados gant view FIM
 
 			 $("#ganttChart").ganttView({ 
 						data: ganttData,
