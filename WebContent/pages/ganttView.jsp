@@ -37,30 +37,47 @@ body {
 	<div id="eventMessage"></div>
 </body>
 
+
 <script type="text/javascript">
 
 $(document).ready(function() {
 
 		$.get("buscarDatasPlanejamento", function(response) {
 			
-			//var ganttDataResposta = JSON.parse(response);
+			var ganttDataResposta = JSON.parse(response);
 			
-			var ganttData = [ 
-			                 
-			              	{
-			              		id: 1, name: "Projeto Java Web", series: [
-			              			{ name: "Planejado", start: new Date(2017,00,05), end: new Date(2017,00,20) },
-			              			{ name: "Real", start: new Date(2017,00,06), end: new Date(2017,00,17), color: "#f0f0f0" },
-			              			{ name: "Projetado", start: new Date(2017,00,06), end: new Date(2017,00,25), color: "#e0e0e0" }
-			              		]
-			              	}
+			var ganttData = "";
+			 ganttData += "["; 
+			 
+				$.each(ganttDataResposta, function(index, projeto) {// for dos projetos
+						
+					ganttData += "{ \"id\": \""+projeto.id+"\", \"name\": \""+projeto.nome+"\", \"series\": [";
+					
+					$.each(projeto.series, function(idx, serie) {// for das series
+						
+						var datainicial = serie.datainicial.split('-');
+						var datafinal = serie.datafinal.split('-');
+						
+						ganttData +="{ \"name\": \""+serie.nome+"\", \"start\":\""+ new Date(datainicial[0],datainicial[1],datainicial[2])+"\", \"end\": \""+new Date(datafinal[0],datafinal[1],datafinal[2])+"\" }";
+						
+						if (idx < projeto.series.length - 1){
+							ganttData +=",";
+						}
+					});// fim for da series
+					
+				    ganttData +="]}";
+				 
+				   if (index < ganttDataResposta.length - 1){
+					   ganttData +=",";
+				   }
+					
+				});// fim for dos projetos
 			
+			 ganttData += "]";
 			
-			              ];
-		
-			
-		
-					$("#ganttChart").ganttView({ 
+			 ganttData = JSON.parse(ganttData);
+
+			 $("#ganttChart").ganttView({ 
 						data: ganttData,
 						slideWidth: 600,
 						behavior: {
