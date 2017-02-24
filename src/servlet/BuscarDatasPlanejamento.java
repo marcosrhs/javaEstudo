@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import dao.DaoGanttChart;
 import entidades.Projeto;
+import entidades.Series;
 
 @WebServlet("/pages/buscarDatasPlanejamento")
 public class BuscarDatasPlanejamento extends HttpServlet {
@@ -33,7 +34,7 @@ public class BuscarDatasPlanejamento extends HttpServlet {
 
 			if (!projetos.isEmpty()) {
 				String grantJson = new Gson().toJson(projetos);
-	
+
 				response.setStatus(200);
 				response.getWriter().write(grantJson);
 			}
@@ -46,6 +47,19 @@ public class BuscarDatasPlanejamento extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
+		try {
+			Series seriesUpdate = new Series();
+
+			seriesUpdate.setId(Long.parseLong(request.getParameter("serie")));
+			seriesUpdate.setProjeto(Long.parseLong(request.getParameter("projeto")));
+			seriesUpdate.setDatainicial(request.getParameter("start"));
+			seriesUpdate.setDatafinal(request.getParameter("end"));
+
+			daoGanttChart.atualizar(seriesUpdate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -41,12 +41,13 @@ body {
 <script type="text/javascript">
 
 $(document).ready(function() {
-
+	
+	
 		$.get("buscarDatasPlanejamento", function(response) {
 			
 		// processa dados gant view INICIO	
 			var ganttDataResposta = JSON.parse(response);
-			
+		
 			var ganttData = "";
 			 ganttData += "["; 
 			 
@@ -68,14 +69,14 @@ $(document).ready(function() {
 						var datainicial = serie.datainicial.split('-');
 						var datafinal = serie.datafinal.split('-');
 						
-						ganttData +="{ \"name\": \""+serie.nome+"\", \"start\":\""+ new Date(datainicial[0],datainicial[1],datainicial[2])+"\", \"end\": \""+new Date(datafinal[0],datafinal[1],datafinal[2])+"\" , \"color\": \""+cor+"\" }";
+						ganttData +="{ \"name\": \""+serie.nome+"\", \"start\":\""+ new Date(datainicial[0],datainicial[1],datainicial[2])+"\", \"end\": \""+new Date(datafinal[0],datafinal[1],datafinal[2])+"\" , \"color\": \""+cor+"\", \"projeto\": \""+serie.projeto+"\" , \"serie\": \""+serie.id+"\" }";
 						
 						if (idx < projeto.series.length - 1){
 							ganttData +=",";
 						}
 					});// fim for da series
 					
-				    ganttData +="]}";
+				    ganttData +="]}";// fecha o array json de series
 				 
 				   if (index < ganttDataResposta.length - 1){
 					   ganttData +=",";
@@ -98,13 +99,26 @@ $(document).ready(function() {
 								$("#eventMessage").text(msg);
 							},
 							onResize: function (data) { 
-								var msg = "Evento de redimencinar { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
-								$("#eventMessage").text(msg);
-							},
-							onDrag: function (data) { 
+								
+								var start = data.start.toString("yyyy-M-d");
+								var end = 	data.end.toString("yyyy-M-d");
+								$.post("buscarDatasPlanejamento", { start: start, end : end, serie : data.serie, projeto : data.projeto });
+								
 								var msg = "Evento de errastar: { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
 								$("#eventMessage").text(msg);
+								
+							},
+							onDrag: function (data) { 
+								
+								var start = data.start.toString("yyyy-M-d");
+								var end = 	data.end.toString("yyyy-M-d");
+								$.post("buscarDatasPlanejamento", { start: start, end : end, serie : data.serie, projeto : data.projeto });
+								
+								var msg = "Evento de errastar: { start: " + data.start.toString("M/d/yyyy") + ", end: " + data.end.toString("M/d/yyyy") + " }";
+								$("#eventMessage").text(msg);
+								
 							}
+							
 						}
 					});
 				

@@ -18,6 +18,15 @@ public class DaoGanttChart {
 		connection = ConnectionDataBase.getConnection();
 	}
 
+	public void atualizar(Series series) throws Exception {
+
+		String sqlUpdate = "update series set datainicial = '"
+				+ series.getDatainicial() + "' , datafinal = '"
+				+ series.getDatafinal() + "' " + "where id = " + series.getId()
+				+ " and projeto = " + series.getProjeto();
+		connection.prepareStatement(sqlUpdate).executeUpdate();
+	}
+
 	public List<Projeto> getProjetos() throws Exception {
 		List<Projeto> projetos = new ArrayList<Projeto>();
 
