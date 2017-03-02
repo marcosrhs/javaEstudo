@@ -43,6 +43,10 @@
 	   <td><a href="pages/ganttView.jsp">Gantt View</a></td>
 	 </tr>
 	 
+	 <tr>
+	   <td><a href="pages/relatorio.jsp">Relatórios</a></td>
+	 </tr>
+	 
 	</table>
 	
 </body>
